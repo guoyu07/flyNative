@@ -1,20 +1,13 @@
 import React, {Component} from 'react'
-import {
-  StyleSheet,
-  Navigator
-} from 'react-native'
-import {
-  Router,
-  Scene,
-  ActionConst
-} from 'react-native-router-flux'
+import { StyleSheet, Navigator } from 'react-native'
+import { Router, Scene, ActionConst } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import Query from './../pages/Query'
 import HomeContainer from './../containers/HomeContainer'
 import OrdersContainer from './../containers/OrdersContainer'
 import OrderDetailContainer from './../containers/OrderDetailContainer'
-import Flights from './../pages/Flights'
-import MakeOrder from './../pages/MakeOrder'
+import FlightsContainer from './../containers/FlightsContainer'
+import MakeOrderContainer from './../containers/MakeOrderContainer'
 import Splash from './../pages/Splash'
 import LoginContainer from './../containers/LoginContainer'
 import WalletContainer from './../containers/WalletContainer'
@@ -83,13 +76,13 @@ class App extends React.Component {
           </Scene>
           <Scene
             key="flights"
-            component={Flights}
+            component={FlightsContainer}
             title="航班列表"
             hideTabBar
           />
           <Scene
             key="makeOrder"
-            component={MakeOrder}
+            component={MakeOrderContainer}
             title="订单填写"
             hideTabBar
           />

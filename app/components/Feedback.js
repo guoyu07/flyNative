@@ -32,6 +32,7 @@ class Feedback extends Component {
               underlineColorAndroid="transparent"
               numberOfLines={10}
               multiline={true}
+              autoFocus={true}
               onChangeText={(advice) => this.setState({advice})}
             />
           </View>

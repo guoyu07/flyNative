@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { RechargeApi } from './../Api'
+import PayModal from './../components/PayModal'
 
 class Recharge extends Component {
   constructor(props) {
@@ -49,77 +50,14 @@ class Recharge extends Component {
     )
   }
 }
-class SureModal extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      payPwd: ''
-    }
-  }
-  sure() {
-    this.props.surePay(this.state.payPwd)
-    this.setState({payPwd: ''})
-  }
-    render() {
-      return (
-        <Modal
-          animationType={"slide"}
-          transparent={true}
-          visible={this.props.isShow}
-          onRequestClose={() => this.props.hideModal()}
-        >
-          <View style={styles.sureModal}>
-            <View style={styles.modalPanel}>
-              <View style={styles.modalPanelHead}>
-                <Text style={{fontSize: 20}}>请输入支付密码</Text>
-              </View>
-              <View style={{
-                width: 250
-              }}>
-                <TextInput
-                  keyboardType='numeric'
-                  placeholder='输入支付密码'
-                  value={this.state.payPwd}
-                  secureTextEntry={true}
-                  onChangeText={(payPwd) => this.setState({payPwd})}
-                />
-              </View>
-              <View style={styles.panelFooter}>
-                <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  alignItems: 'center'
-                }}>
-                  <View style={styles.modalBtns}>
-                    <Button
-                      onPress={()=>this.props.hideModal()}
-                      title='取消'>
-                    </Button>
-                  </View>
-                  <View style={styles.modalBtns}>
-                    <Button
-                      onPress={()=>this.sure()}
-                      color='red'
-                      title='确定'>
-                    </Button>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </Modal>
-      )
-    }
-}
 class Wallet extends Component {
   constructor(props) {
     super(props)
     this.state = {
       toRecharge: false,
       showToRechargeBtn: true,
-      showModal: false,
-      money: ''
+      money: '',
+      isShowPayModal: false,
     }
   }
 
@@ -130,7 +68,10 @@ class Wallet extends Component {
       return
     }
     this.setState({money})
-    this.setState({showModal: true})
+    // this.setState({showModal: true})
+    this.setState({
+      isShowPayModal: true
+    })
 
   }
   surePay(payPwd) {
@@ -145,7 +86,7 @@ class Wallet extends Component {
         this.setState({
           showToRechargeBtn: true,
           toRecharge: false,
-          showModal: false
+          isShowPayModal: false
         })
         ToastAndroid.show('充值成功', ToastAndroid.SHORT)
       } else {
@@ -157,9 +98,16 @@ class Wallet extends Component {
     })
 
   }
-  hideModal() {
+
+  toPayOrder() {
     this.setState({
-      showModal: false
+      isShowPayModal: true,
+    })
+  }
+
+  closePayModal() {
+    this.setState({
+      isShowPayModal: false
     })
   }
   render() {
@@ -185,11 +133,11 @@ class Wallet extends Component {
         <Recharge isShow={this.state.toRecharge} addAccount={(money) => this.addAccount(money)}/>
 
         { toRechargeBtn }
-        <SureModal
-          isShow={this.state.showModal}
-          hideModal={() => this.hideModal()}
-          surePay={(payPwd)=> this.surePay(payPwd)}/>
-
+        
+        <PayModal isShow={this.state.isShowPayModal}
+          close={() => this.closePayModal()}
+          payFunc={(pwd) => this.surePay(pwd)}
+             />
       </ScrollView>
     )
   }

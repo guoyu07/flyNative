@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native'
-import { Actions } from 'react-native-router-flux'
+
 import Icon from 'react-native-vector-icons/Ionicons'
 
 export default class FlightItem extends Component {
@@ -15,11 +15,12 @@ export default class FlightItem extends Component {
     super(props)
   }
   onFlightClick() {
-    this.props.onFlightClick(this.props.data)
+    this.props.onFlightClick(this.props.rowIndex)
   }
-  onBtnClick() {
+  onBtnClick(flightInfo, cabinInfo) {
     // ToastAndroid.show('请先登录', ToastAndroid.SHORT)
-    Actions.makeOrder()
+    this.props.onBtnClick(flightInfo,cabinInfo)
+
   }
   render() {
     const cabinDetail = this.props.data.cabins.map((val, i) => {
@@ -31,8 +32,8 @@ export default class FlightItem extends Component {
                                   <View>
                                     <Button
                                       color="#ff5346"
-                                      title={val.price}
-                                      onPress={() => this.onBtnClick()}>
+                                      title={'￥' + val.price}
+                                      onPress={() => this.onBtnClick(this.props.data, val)}>
                                     </Button>
                                   </View>
                                 </View>
@@ -68,8 +69,8 @@ export default class FlightItem extends Component {
                   </Text>
                 </View>
                 <View style={{flex: 2}}>
-                  <Text style={styles.price}>
-                    {this.props.data.price}
+                  <Text style={styles.choice}>
+                    选择
                   </Text>
                 </View>
               </View>
@@ -115,9 +116,9 @@ const styles = StyleSheet.create({
   city: {
     fontSize: 14
   },
-  price: {
-    color: '#ff5346',
-    fontSize: 20,
+  choice: {
+    color: '#61aefd',
+    fontSize: 18,
     textAlign: 'right',
     lineHeight: 48
   },

@@ -33,7 +33,7 @@ class Query extends Component {
       });
       if (action !== DatePickerAndroid.dismissedAction) {
         this.setState({
-          flightDay: `${year}-${month}-${day}`
+          flightDay: `${year}-${month+1}-${day}`
         })
       }
     } catch ({code, message}) {
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   searchBtn: {
     marginTop: 20,
     backgroundColor: 'red',
-    height: 50,
+    height: 40,
     borderRadius: 10,
   },
   searchBtnWrapper: {

@@ -12,7 +12,7 @@ class WebviewPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      uri: 'http://www.baidu.com'
+      uri: 'https://www.wangsong3635.cn/page/tc_fly_aboutus.html'
     }
   }
   componentWillMount() {

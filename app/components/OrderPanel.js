@@ -35,7 +35,7 @@ export default class OrderPanel extends Component {
               name='ios-plane-outline'
               size={25}
             />
-          <Text style={styles.price}> {this.props.flightInfo.price} </Text>
+          <Text style={styles.price}> ￥{this.props.flightInfo.price} </Text>
           </View>
           <View style={styles.flight_info}>
             <Text style={styles.city}>{ this.props.flightInfo.destinationCity }</Text>

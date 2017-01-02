@@ -11,48 +11,18 @@ import Icon from 'react-native-vector-icons/Ionicons'
 export default class AddPassenger extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      passengers: [{
-        name: '',
-        identity: ''
-      }]
-    }
+    console.log(props)
   }
-  onChangeName(name, i) {
-    let passengers = JSON.parse(JSON.stringify(this.state.passengers))
-    passengers[i].name = name
-    this.setState({passengers})
-  }
-  onChangeIdentity(identity, i) {
-    let passengers = JSON.parse(JSON.stringify(this.state.passengers))
-    passengers[i].identity = identity
-    this.setState({passengers})
-  }
-  addPassenger() {
-    let passengers = JSON.parse(JSON.stringify(this.state.passengers))
-    passengers.push({
-      name: '',
-      identity: ''
-    })
-    this.setState({passengers})
-  }
-  deletePassenger(i) {
-    let passengers = JSON.parse(JSON.stringify(this.state.passengers))
-    if(passengers.length < 2) {
-      return
-    }
-    passengers.splice(i, 1)
-    this.setState({passengers})
-  }
+
   render() {
-    let passengersView = this.state.passengers.map((val, i) => {
+    let passengersView = this.props.passengers.map((val, i) => {
         return (
           <View style={styles.passenger} key={i}>
             <View style={{
               width: 18,
               alignSelf: 'center'
             }}>
-              <TouchableOpacity onPress={() => this.deletePassenger(i)}>
+              <TouchableOpacity onPress={() => this.props.deletePassenger(i)}>
                 <Icon
                   name="ios-remove-circle-outline"
                   color="#ff5346"
@@ -70,8 +40,8 @@ export default class AddPassenger extends Component {
                     style={styles.input}
                     placeholder="请输入乘客姓名"
                     placeholderTextColor="#999"
-                    value={val.name}
-                    onChangeText={(name)=>this.onChangeName(name, i)}
+                    underlineColorAndroid="transparent"
+                    onChangeText={(name)=>this.props.onChangeName(name, i)}
                   />
                 </View>
               </View>
@@ -85,8 +55,9 @@ export default class AddPassenger extends Component {
                     placeholder="请输入证件号"
                     placeholderTextColor="#999"
                     keyboardType="numeric"
-                    value={val.identity}
-                    onChangeText={(identity)=>this.onChangeIdentity(identity, i)}
+                    underlineColorAndroid="transparent"
+                    onBlur={() => this.props.checkIdentity(i)}
+                    onChangeText={(identity)=>this.props.onChangeIdentity(identity, i)}
                   />
                 </View>
               </View>
@@ -115,7 +86,7 @@ export default class AddPassenger extends Component {
               <Text style={styles.person}>乘客信息</Text>
             </View>
             <View style={{flex: 2}}>
-              <TouchableOpacity activeOpacity={0.9} onPress={() => this.addPassenger()}>
+              <TouchableOpacity activeOpacity={0.9} onPress={() => this.props.addPassenger()}>
                 <Text style={[styles.person, styles.add_color]}>+ 添加乘客</Text>
               </TouchableOpacity>
             </View>

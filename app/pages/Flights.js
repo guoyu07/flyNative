@@ -1,49 +1,64 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView, RefreshControl } from 'react-native'
+import { Text, View, StyleSheet, ScrollView, RefreshControl, ToastAndroid } from 'react-native'
 import FlightItem from './../components/FlightItem'
+import { SearchFlightApi } from './../Api'
+import { Actions } from 'react-native-router-flux'
 
 class Flights extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isRefreshing: false,
-      loaded: 0,
-      rowData: Array.from(new Array(10)).map(
-        (val, i) => ({
-          originCity: '上海' + i,
-          destinationCity: '北京',
-          flightDate: '06:40',
-          arrivalDate: '09:10',
-          price: '￥1193',
-          tips: '联合航空KN5988|波音737（中）',
-          isShowCabin: false,
-          cabins: [{
-            cabin: '经济舱',
-            remain: '200',
-            price: '￥720'
-          },{
-            cabin: '头等舱',
-            remain: '10',
-            price: '￥1240'
-          }]
-        })
-      )
+      isRefreshing: false
     }
   }
-  onFlightClick(row) {
-    /**先关闭所有的，再打开点击的，确保只有一个是打开的**/
-    let isShowCabin = !row.isShowCabin
-    this.state.rowData.map((row, i) => {
-      row.isShowCabin = false
+  componentDidMount() {
+    setTimeout(() => {
+      this.searchFlight()
+    }, 200)
+  }
+  searchFlight() {
+    this.setState({isRefreshing: true})
+    SearchFlightApi(this.props.searchFlightForm).then(response => response.json())
+    .then(responseJson => {
+      if(!responseJson.errno) {
+        //控制每一列是否显示舱位信息
+        responseJson.data.flightData.map((item) => {
+          item.isShowCabin = false
+        })
+        this.props.actions.setFlightData(responseJson.data.flightData)
+      }
+      else {
+        ToastAndroid.show(responseJson.errmsg, ToastAndroid.SHORT)
+      }
+      this.setState({isRefreshing: false})
     })
-    row.isShowCabin = isShowCabin
-    this.setState({
-      rowData: this.state.rowData
+    .catch(error => {
+      console.log(error)
+      this.setState({isRefreshing: false})
     })
   }
+  onRefresh() {
+    this.searchFlight()
+  }
+  onFlightClick(i) {
+    /**先关闭所有的，再打开点击的，确保只有一个是打开的**/
+    let flightData = JSON.parse(JSON.stringify(this.props.flight.flightData))
+    let isShowCabin = !flightData[i].isShowCabin
+    flightData.map((row, i) => {
+      row.isShowCabin = false
+    })
+    flightData[i].isShowCabin = isShowCabin
+    this.props.actions.setFlightData(flightData)
+  }
+  onBtnClick(flightInfo, cabinInfo) {
+    let flight = {...flightInfo, ...cabinInfo}
+    Actions.makeOrder({flightInfo: flight})
+  }
   render() {
-    const rows = this.state.rowData.map((row, ii) => {
-      return <FlightItem key={ii} data={row} onFlightClick={(row) => this.onFlightClick(row)} />
+    const rows = this.props.flight.flightData.map((row, ii) => {
+      return <FlightItem key={ii} rowIndex={ii} data={row}
+        onFlightClick={(ii) => this.onFlightClick(ii)}
+        onBtnClick={(flightInfo, cabinInfo) => this.onBtnClick(flightInfo, cabinInfo)} />
     })
     return(
       <ScrollView
@@ -56,43 +71,12 @@ class Flights extends Component {
             title="Loading"
             titleColor="#00ff00"
             colors={['#ff0000', '#00ff00','#0000ff']}
-            progressBackgroundColor='#ffff00'
+            progressBackgroundColor='#fff'
           />
         }>
         {rows}
       </ScrollView>
     )
-  }
-
-  onRefresh() {
-    this.setState({isRefreshing: true})
-    setTimeout(() => {
-      const rowData = Array.from(new Array(10))
-      .map((val, i) => ({
-        originCity: '上海' + i,
-        destinationCity: '北京',
-        flightDate: '06:40',
-        arrivalDate: '09:10',
-        price: '￥1193',
-        tips: '联合航空KN5988|波音737（中）',
-        isShowCabin: false,
-        cabins: [{
-          cabin: '经济舱',
-          remain: '200',
-          price: '￥720'
-        },{
-          cabin: '头等舱',
-          remain: '10',
-          price: '￥1240'
-        }]
-      }))
-      .concat(this.state.rowData)
-      this.setState({
-        loaded: this.state.loaded + 10,
-        isRefreshing: false,
-        rowData: rowData
-      })
-    }, 2000)
   }
 }
 const styles = StyleSheet.create({

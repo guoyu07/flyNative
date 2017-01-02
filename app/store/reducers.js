@@ -11,7 +11,9 @@ const initialState = {
     mobile: '',
     account: 0.00,
   },
-  flight: {},
+  flight: {
+    flightData: []
+  },
   orders: {
     orderData: []
   }
@@ -30,9 +32,9 @@ let reducers = {
   },
   flight(state = initialState.flight, action) {
     switch (action.type) {
-      case types.SET_SEARCH_FLIGHT_FORM:
+      case types.SET_FLIGHT_DATA:
         return {...state,
-          searchFlightForm: action.searchFlightForm
+          flightData: action.flightData
         }
       default:
         return state

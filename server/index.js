@@ -76,6 +76,31 @@ server.route({
 })
 server.route({
   method: 'post',
+  path: '/orders/submit',
+  handler: function(req, res) {
+    console.log('/orders/submit')
+    console.log(req.payload)
+    res({
+      errno: '',
+      errmsg: '',
+      data: {
+        orderInfo: {
+          flightNo: 'MU5102',
+          flightDay: '2016-12-28',
+          flightDate: '10:00',
+          arrivalDate: '12:20',
+          originCity: '北京',
+          destinationCity: '上海',
+          price: req.payload.sumPrice,
+          orderStatus: '未支付',
+          passengers: req.payload.passengers
+        }
+      }
+    })
+  }
+})
+server.route({
+  method: 'post',
   path: '/orders/pay',
   handler: function(req, res) {
     console.log('/orders/pay')
@@ -87,7 +112,7 @@ server.route({
       arrivalDate: '12:20',
       originCity: '北京',
       destinationCity: '上海',
-      price: '￥1340',
+      price: '1340',
       orderStatus: '已支付',
       passengers: [{
         name: '成龙',
@@ -96,10 +121,7 @@ server.route({
         name: '哈哈哈',
         identity: '123456789987654321'
       },{
-        name: '谁家的',
-        identity: '123456789987654321'
-      },{
-        name: '哈哈哈',
+        name: '哈哈',
         identity: '123456789987654321'
       }]
     }
@@ -124,7 +146,7 @@ server.route({
       arrivalDate: '12:20',
       originCity: '北京',
       destinationCity: '上海',
-      price: '￥340',
+      price: '340',
       orderStatus: '未支付',
       passengers: [{
         name: '成龙',
@@ -133,10 +155,7 @@ server.route({
         name: '哈哈哈',
         identity: '123456789987654321'
       },{
-        name: '谁家的',
-        identity: '123456789987654321'
-      },{
-        name: '哈哈哈',
+        name: '哈',
         identity: '123456789987654321'
       }]
     }, orderData = []
@@ -148,6 +167,43 @@ server.route({
       errmsg: '',
       data: {
         orderData: orderData
+      }
+    })
+  }
+})
+server.route({
+  method: 'post',
+  path: '/flight/search',
+  handler: function(req, res) {
+    console.log('/flight/search  ' + new Date())
+    console.log(req.payload)
+    var flightData = [],
+        flightItem = {
+          originCity: req.payload.originCity,
+          destinationCity: req.payload.destinationCity,
+          flightDay: req.payload.flightDay,
+          flightNo: 'MU1234',
+          flightDate: '06:40',
+          arrivalDate: '09:10',
+          tips: '联合航空KN5988|波音737（中）',
+          cabins: [{
+            cabin: '经济舱',
+            remain: '200',
+            price: '720'
+          },{
+            cabin: '头等舱',
+            remain: '10',
+            price: '1240'
+          }]
+        }
+    for(var i=0; i<8; i++) {
+      flightData.push(flightItem)
+    }
+    res({
+      errno: '',
+      errmsg: '',
+      data: {
+        flightData:flightData
       }
     })
   }

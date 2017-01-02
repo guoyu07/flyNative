@@ -60,7 +60,7 @@ export default class LoginOrReg extends Component {
           (<Signup onSignup={(text)=>this.onSignup(text)} toLogin={()=>this.toLogin()}/>) :
           (<Login onLogin={(text)=>this.onLogin(text)} toSignup={()=>this.toSignup()}/>)
     return (
-      <ScrollView >
+      <ScrollView style={{backgroundColor: '#fff'}}>
         {showLoginOrSignupView}
       </ScrollView>
     )

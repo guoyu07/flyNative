@@ -18,6 +18,19 @@ const propTypes = {
 const contextTypes = {
   routes: PropTypes.object.isRequired
 }
+class EmptyOrder extends Component {
+  render() {
+    return (
+      <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+        <Text>您还未下过订单哦！</Text>
+      </View>
+    )
+  }
+}
 class Orders extends Component {
   constructor(props) {
     super(props)
@@ -26,23 +39,7 @@ class Orders extends Component {
     }
   }
   componentWillMount() {
-    this.props.actions.setOrderData([{
-      flightNo: 'MU5102',
-      flightDay: '2016-12-28',
-      flightDate: '10:00',
-      arrivalDate: '12:20',
-      originCity: '北京',
-      destinationCity: '上海',
-      price: '￥340',
-      orderStatus: '未支付',
-      passengers: [{
-        name: '成龙',
-        identity: '123456789987654321'
-      },{
-        name: '哈哈哈',
-        identity: '123456789987654321'
-      }]
-    }])
+
   }
   onRefresh() {
     this.setState({isRefreshing: true})
@@ -60,13 +57,13 @@ class Orders extends Component {
     Actions.orderDetail({arrIndex})
   }
   render() {
-    let OrdersView = this.props.orders.orderData ? this.props.orders.orderData.map((val, i) => {
+    let OrdersView = this.props.orders.orderData&&this.props.orders.orderData.length>0 ? this.props.orders.orderData.map((val, i) => {
       return (
         <TouchableOpacity activeOpacity={0.9} onPress={()=>this.onPress(val, i)} key={i}>
           <OrderPanel flightInfo={val} />
         </TouchableOpacity>
       )
-    }) : null
+    }) : <EmptyOrder></EmptyOrder>
     return(
       <ScrollView style={{backgroundColor: 'rgb(233,236,241)'}}
         refreshControl = {

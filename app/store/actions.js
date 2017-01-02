@@ -59,3 +59,9 @@ export const setOrderData = (orderData) => {
     orderData
   }
 }
+export const setFlightData = (flightData) => {
+  return {
+    type: types.SET_FLIGHT_DATA,
+    flightData
+  }
+}

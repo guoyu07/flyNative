@@ -28,3 +28,7 @@ export const FeedbackApi = (advice) => Api(Url.Feedback, advice)
 export const GetOrdersApi = (userInfo) => Api(Url.GetOrders, userInfo)
 
 export const PayOrderApi = (orderInfo) => Api(Url.PayOrder, orderInfo)
+
+export const SubmitOrderApi = (orderInfo) => Api(Url.SubmitOrder, orderInfo)
+
+export const SearchFlightApi = (flightForm) => Api(Url.SearchFlight, flightForm)
