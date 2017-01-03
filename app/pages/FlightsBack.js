@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView, ListView, RefreshControl, ToastAndroid, ActivityIndicator } from 'react-native'
+import { Text, View, StyleSheet, ScrollView, RefreshControl, ToastAndroid } from 'react-native'
 import FlightItem from './../components/FlightItem'
 import { SearchFlightApi } from './../Api'
 import { Actions } from 'react-native-router-flux'
@@ -7,10 +7,8 @@ import { Actions } from 'react-native-router-flux'
 class Flights extends Component {
   constructor(props) {
     super(props)
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
-      isRefreshing: false,
-      dataSource: ds
+      isRefreshing: false
     }
   }
   componentDidMount() {
@@ -59,35 +57,15 @@ class Flights extends Component {
     let flight = {...flightInfo, ...cabinInfo}
     Actions.makeOrder({flightInfo: flight})
   }
-  renderRow(rowData, sectionId, rowId) {
-      return (
-          <FlightItem rowIndex={rowId} data={rowData}
-            onFlightClick={(rowId) => this.onFlightClick(rowId)}
-            onBtnClick={(flightInfo, cabinInfo) => this.onBtnClick(flightInfo, cabinInfo)} />
-      )
-  }
-  renderFooter() {
-      if(this.state.isRefreshing) {
-          return (
-              <View style={styles.footerContainer} >
-                <ActivityIndicator size="small" color="#3e9ce9" />
-                <Text> 数据加载中……</Text>
-              </View>
-          )
-      }
-      return (
-          <View>
-            <Text>没有更多数据了哦</Text>
-          </View>
-      )
-  }
   render() {
+    const rows = this.props.flight.flightData.map((row, ii) => {
+      return <FlightItem key={ii} rowIndex={ii} data={row}
+        onFlightClick={(ii) => this.onFlightClick(ii)}
+        onBtnClick={(flightInfo, cabinInfo) => this.onBtnClick(flightInfo, cabinInfo)} />
+    })
     return(
-      <ListView
+      <ScrollView
         style={styles.scrollview}
-        dataSource = {this.state.dataSource.cloneWithRows(this.props.flight.flightData)}
-        renderRow={(rowData, sectionId, rowId) => this.renderRow(rowData, sectionId, rowId)}
-        enableEmptySections={true}
         refreshControl={
           <RefreshControl
             refreshing={this.state.isRefreshing}
@@ -99,16 +77,14 @@ class Flights extends Component {
             progressBackgroundColor='#fff'
           />
         }>
-      </ListView>
+        {rows}
+      </ScrollView>
     )
   }
 }
 const styles = StyleSheet.create({
   scrollview: {
     flex: 1
-  },
-  footerContainer: {
-    height: 20
   }
 })
 export default Flights

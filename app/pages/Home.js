@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Feedback from './../components/Feedback'
 import { Actions } from 'react-native-router-flux'
 import { FeedbackApi } from './../Api'
+import UserStorage from './../storage/User'
 
 const propTypes = {
   actions: PropTypes.object,
@@ -36,6 +37,7 @@ class Home extends Component {
     Actions.loginOrReg()
   }
   onLogout() {
+    UserStorage.remove()
     this.actions.logout()
     ToastAndroid.show('退出成功', ToastAndroid.SHORT)
   }
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
   quit: {
     justifyContent: 'center',
     margin: 20,
-    height: 50,
+    height: 45,
     borderRadius: 10,
     backgroundColor: 'red'
   },

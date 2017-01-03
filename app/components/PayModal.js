@@ -3,7 +3,6 @@ import { View, Text, Modal, StyleSheet, Dimensions, TouchableOpacity } from 'rea
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 
-
 const {height:windowHeight, width: windowWidth} = Dimensions.get('window')
 class PayModal extends Component {
   constructor(props) {
@@ -18,20 +17,22 @@ class PayModal extends Component {
         password: this.state.password.slice(0, -1)
       })
       return
-    } else {
-      this.setState({
-        password: this.state.password.concat(key)
-      })
     }
-    setTimeout(() => {
-      if(this.state.password.length == 6) {
-        this.props.payFunc(this.state.password)
+    if(this.state.password.length >= 6) {
+        return
+    }
+    if(this.state.password.length == 5) {
+        let pwd = this.state.password.concat(key)
         this.setState({
-          password: ''
+          password: this.state.password.concat(key)
         })
-      }
-    }, 0)
-
+        this.props.payFunc(pwd)
+    }
+    if(this.state.password.length < 5) {
+        this.setState({
+          password: this.state.password.concat(key)
+        })
+    }
   }
   forgetPwd() {
     this.props.close()

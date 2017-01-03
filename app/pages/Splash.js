@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
-import {
-  Dimensions,
-  Animated
-} from 'react-native';
+import { Dimensions, Animated } from 'react-native';
+import UserStorage from './../storage/User'
+import { login } from './../store/actions'
 
 const contextTypes = {
   routes: PropTypes.object.isRequired
@@ -27,6 +26,11 @@ class Splash extends React.Component {
     ).start();
     this.timer = setTimeout(() => {
       routes.tabbar()
+      UserStorage.load().then(userInfo => {
+          if(userInfo.isLogin) {
+             this.props.dispatch(login(userInfo))
+          }
+      })
     }, 3000);
   }
 

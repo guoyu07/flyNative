@@ -30,7 +30,8 @@ server.route({
         username: req.payload.username,
         account: '900',
         email: '319827688@qq.com',
-        userid: '123456'
+        userid: '123456',
+        token: 'token123'
       }
     })
   }
@@ -115,13 +116,16 @@ server.route({
       price: '1340',
       orderStatus: '已支付',
       passengers: [{
-        name: '成龙',
+        name: '路人甲',
         identity: '123456789987654321'
       },{
-        name: '哈哈哈',
+        name: '路人乙',
         identity: '123456789987654321'
       },{
-        name: '哈哈',
+        name: '路人丙',
+        identity: '123456789987654321'
+      },{
+        name: '路人丁',
         identity: '123456789987654321'
       }]
     }
@@ -149,13 +153,16 @@ server.route({
       price: '340',
       orderStatus: '未支付',
       passengers: [{
-        name: '成龙',
+        name: '路人甲',
         identity: '123456789987654321'
       },{
-        name: '哈哈哈',
+        name: '路人乙',
         identity: '123456789987654321'
       },{
-        name: '哈',
+        name: '路人丙',
+        identity: '123456789987654321'
+      },{
+        name: '路人丁',
         identity: '123456789987654321'
       }]
     }, orderData = []
@@ -196,7 +203,7 @@ server.route({
             price: '1240'
           }]
         }
-    for(var i=0; i<8; i++) {
+    for(var i=0; i<5; i++) {
       flightData.push(flightItem)
     }
     res({

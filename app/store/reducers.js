@@ -36,6 +36,10 @@ let reducers = {
         return {...state,
           flightData: action.flightData
         }
+      case types.ADD_FLIGHT_DATA:
+        return { ...state,
+          flightData: state.flightData.concat(action.flightData)
+        }
       default:
         return state
     }
@@ -75,7 +79,8 @@ let reducers = {
         }
       case types.LOGIN_SUCCESS:
         return {...action.userInfo,
-          isLogin: true
+          isLogin: true,
+          account: parseFloat(action.userInfo.account)
         }
       case types.LOGOUT:
         return {

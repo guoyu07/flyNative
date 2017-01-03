@@ -39,7 +39,7 @@ class Recharge extends Component {
             <View style={{marginTop: 20}}>
               <Button
                 color="red"
-                title="确定"
+                title="确认支付"
                 onPress={() => this.setAccount()}
               />
             </View>
@@ -133,7 +133,7 @@ class Wallet extends Component {
         <Recharge isShow={this.state.toRecharge} addAccount={(money) => this.addAccount(money)}/>
 
         { toRechargeBtn }
-        
+
         <PayModal isShow={this.state.isShowPayModal}
           close={() => this.closePayModal()}
           payFunc={(pwd) => this.surePay(pwd)}

@@ -1,13 +1,5 @@
 import React, {Component} from 'react'
-import {
-  Text,
-  View,
-  Image,
-  Button,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity
-} from 'react-native'
+import {  Text, View, Image,  Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 export default class Login extends Component {

@@ -1,16 +1,10 @@
 import React, {Component, PropTypes} from 'react'
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  ScrollView,
-  ToastAndroid
-} from 'react-native'
+import { View, Text, Button, StyleSheet, ScrollView, ToastAndroid } from 'react-native'
 import Login from './../components/Login'
 import Signup from './../components/Signup'
 import {LoginApi,SignupApi} from './../Api'
 import { Actions } from 'react-native-router-flux'
+import UserStorage from './../storage/User'
 
 const propTypes = {
   actions: PropTypes.object,
@@ -31,6 +25,7 @@ export default class LoginOrReg extends Component {
     .then((response) => response.json())
     .then(responseJson => {
       if(!responseJson.errno) {
+        UserStorage.save(responseJson.data)
         that.actions.login(responseJson.data)
         Actions.pop()
       }

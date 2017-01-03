@@ -20,6 +20,7 @@ class MakeOrder extends Component {
     //先检查是否登陆
     if(!this.props.user.isLogin) {
       ToastAndroid.show('请先登录', ToastAndroid.SHORT)
+      Actions.loginOrReg()
       return
     }
     //验证身份证号
@@ -28,7 +29,6 @@ class MakeOrder extends Component {
         return
       }
     }
-    console.log('验证成功，准备提交')
     SubmitOrderApi({...this.props.flightInfo,
       passengers: this.state.passengers,
       sumPrice: this.state.sumPrice
@@ -37,7 +37,7 @@ class MakeOrder extends Component {
         if(!responseJson.errno) {
           this.props.actions.addOrderData(responseJson.data.orderInfo)
           ToastAndroid.show('提交成功，前往支付', ToastAndroid.SHORT)
-          Actions.orderDetail({arrIndex:this.props.orders.orderData.length - 1})
+          Actions.orderDetail({arrIndex:this.props.orders.orderData.length - 1, type: 'replace'})
         }
     })
 

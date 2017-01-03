@@ -15,6 +15,7 @@ export const login = (userInfo) => {
     userInfo
   }
 }
+
 export const signup = () => {
   return {
     type: types.SIGN_UP
@@ -62,6 +63,12 @@ export const setOrderData = (orderData) => {
 export const setFlightData = (flightData) => {
   return {
     type: types.SET_FLIGHT_DATA,
+    flightData
+  }
+}
+export const addFlightData = (flightData) => {
+  return {
+    type: types.ADD_FLIGHT_DATA,
     flightData
   }
 }

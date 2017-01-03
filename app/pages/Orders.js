@@ -38,8 +38,13 @@ class Orders extends Component {
       isRefreshing: false,
     }
   }
-  componentWillMount() {
-
+  componentDidMount() {
+     this.timer = setTimeout(() => {
+         this.onRefresh()
+     }, 0)
+  }
+  componentWillUnmount() {
+      clearTimeout(this.timer)
   }
   onRefresh() {
     this.setState({isRefreshing: true})
