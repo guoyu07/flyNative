@@ -14,7 +14,7 @@ class Flights extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.searchFlight()
-    }, 200)
+  }, 500)
   }
   searchFlight() {
     this.setState({isRefreshing: true})
