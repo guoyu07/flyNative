@@ -5,6 +5,7 @@ import {
   Button,
   RefreshControl,
   ScrollView,
+  ToastAndroid,
   TouchableOpacity
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
@@ -56,6 +57,11 @@ class Orders extends Component {
           isRefreshing: false
         })
       }
+    }).catch(error => {
+      this.setState({
+        isRefreshing: false
+      })
+      ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)
     })
   }
   onPress(orderItem, arrIndex) {

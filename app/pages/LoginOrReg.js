@@ -31,7 +31,7 @@ export default class LoginOrReg extends Component {
       }
     })
     .catch(error => {
-      console.log(error)
+      ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)
     })
   }
   onSignup(userInfo) {
@@ -42,6 +42,8 @@ export default class LoginOrReg extends Component {
         this.actions.signup()
         ToastAndroid.show('注册成功，请前往登录', ToastAndroid.SHORT)
       }
+    }).catch(error => {
+      ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)
     })
   }
   toLogin() {

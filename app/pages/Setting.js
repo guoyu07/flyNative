@@ -197,7 +197,7 @@ class Setting extends Component {
       }
     })
     .catch(error => {
-      ToastAndroid.show(error, ToastAndroid.SHORT)
+      ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)
     })
 
   }
@@ -221,7 +221,7 @@ class Setting extends Component {
       }
     })
     .catch(error => {
-      ToastAndroid.show(error, ToastAndroid.SHORT)
+      ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)
     })
   }
   setName(obj) {
@@ -245,7 +245,7 @@ class Setting extends Component {
       }
     })
     .catch(error => {
-      ToastAndroid.show(error, ToastAndroid.SHORT)
+      ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)
     })
   }
   hideSetName() {

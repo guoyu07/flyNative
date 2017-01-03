@@ -38,7 +38,7 @@ class Flights extends Component {
       this.setState({isRefreshing: false})
     })
     .catch(error => {
-      console.log(error)
+      ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)
       this.setState({isRefreshing: false})
     })
   }

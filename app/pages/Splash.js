@@ -30,6 +30,7 @@ class Splash extends React.Component {
           if(userInfo.isLogin) {
              this.props.dispatch(login(userInfo))
           }
+      }).catch(error => {
       })
     }, 3000);
   }

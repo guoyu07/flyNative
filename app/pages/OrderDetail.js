@@ -103,6 +103,8 @@ class OrderDetail extends Component {
       } else {
         ToastAndroid.show(responseJson.errmsg, ToastAndroid.SHORT)
       }
+    }).catch(error => {
+      ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)
     })
   }
   closePayModal() {
