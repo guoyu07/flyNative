@@ -1,5 +1,10 @@
 import * as Url from './constants/Url'
+import Store from './store/index'
+
 const Api = (url, info) => {
+  let state = Store.getState()
+  let token = state.user.token || ''
+  info = {...info, token}
   return fetch(url, {
     method: 'POST',
     headers: {

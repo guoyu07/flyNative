@@ -39,6 +39,11 @@ class MakeOrder extends Component {
           ToastAndroid.show('提交成功，前往支付', ToastAndroid.SHORT)
           Actions.orderDetail({arrIndex:this.props.orders.orderData.length - 1, type: 'replace'})
         }
+        else {
+          ToastAndroid.show(responseJson.errmsg, ToastAndroid.SHORT)
+        }
+    }).catch(error => {
+      ToastAndroid.show('请检查网络连接哦', ToastAndroid.SHORT)
     })
 
   }

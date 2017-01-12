@@ -28,6 +28,8 @@ export default class LoginOrReg extends Component {
         UserStorage.save(responseJson.data)
         that.actions.login(responseJson.data)
         Actions.pop()
+      } else {
+        ToastAndroid.show(responseJson.errmsg, ToastAndroid.SHORT)
       }
     })
     .catch(error => {
@@ -41,6 +43,9 @@ export default class LoginOrReg extends Component {
       if(!responseJson.errno) {
         this.actions.signup()
         ToastAndroid.show('注册成功，请前往登录', ToastAndroid.SHORT)
+      }
+      else {
+        ToastAndroid.show(responseJson.errmsg, ToastAndroid.SHORT)
       }
     }).catch(error => {
       ToastAndroid.show('请检查网络链接哦', ToastAndroid.SHORT)

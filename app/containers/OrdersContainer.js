@@ -12,9 +12,9 @@ class OrdersContainer extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { orders } = state
+  const { orders, user } = state
   return {
-    orders
+    orders, user
   }
 }
 const mapDispatchToProps = (dispatch) => {

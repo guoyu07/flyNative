@@ -47,7 +47,7 @@ export default class FlightItem extends Component {
               <View style={styles.rowUp}>
                 <View style={{flex: 1}}>
                   <Text style={[styles.text,styles.date]}>
-                    {this.props.data.flightDate}
+                    {this.props.data.showFlightDate}
                   </Text>
                   <Text style={[styles.text,styles.city]}>
                     {this.props.data.originCity}
@@ -62,7 +62,7 @@ export default class FlightItem extends Component {
                 </View>
                 <View style={{flex: 1}}>
                   <Text style={[styles.text,styles.date]}>
-                    { this.props.data.arrivalDate }
+                    { this.props.data.showArrivalDate }
                   </Text>
                   <Text style={[styles.text,styles.city]}>
                     {this.props.data.destinationCity}
