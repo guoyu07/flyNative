@@ -27,9 +27,23 @@ export const logout = () => {
   }
 }
 
+export const setUsername = (username) => {
+  return {
+    type: types.SET_NAME,
+    username
+  }
+}
+
 export const addAccount = (money) => {
   return {
     type: types.ADD_ACCOUNT,
+    money
+  }
+}
+
+export const delAccount = (money) => {
+  return {
+    type: types.DEL_ACCOUNT,
     money
   }
 }

@@ -1,15 +1,7 @@
 import React, {Component} from 'react'
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  ToastAndroid
-} from 'react-native'
+import { View, Text, ScrollView, StyleSheet, TextInput, Button, TouchableOpacity, ToastAndroid } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { setUsername } from './../store/actions'
 import { ModifyPwdApi, ModifyPayPwdApi, ModifyNameApi } from './../Api'
 class SetPwd extends Component {
   constructor(props) {
@@ -238,6 +230,7 @@ class Setting extends Component {
         this.setState({
           showSetName: false
         })
+        this.props.dispatch(setUsername(obj.username))
         ToastAndroid.show('用户名修改成功', ToastAndroid.SHORT)
       }
       else {

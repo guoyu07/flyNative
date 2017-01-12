@@ -90,7 +90,7 @@ class Wallet extends Component {
         })
         ToastAndroid.show('充值成功', ToastAndroid.SHORT)
       } else {
-        ToastAndroid.show('充值失败', ToastAndroid.SHORT)
+        ToastAndroid.show(responseJson.errmsg, ToastAndroid.SHORT)
       }
     })
     .catch(error => {

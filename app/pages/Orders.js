@@ -48,14 +48,20 @@ class Orders extends Component {
       clearTimeout(this.timer)
   }
   onRefresh() {
+    if(!this.props.user.isLogin) {
+      ToastAndroid.show('请先登录哦！', ToastAndroid.SHORT)
+      return
+    }
     this.setState({isRefreshing: true})
     GetOrdersApi().then(response => response.json())
     .then(responseJson => {
       if(!responseJson.errno) {
-        this.props.actions.addOrderData(responseJson.data.orderData)
+        this.props.actions.setOrderData(responseJson.data.orderData)
         this.setState({
           isRefreshing: false
         })
+      } else {
+        ToastAndroid.show(responseJson.errmsg, ToastAndroid.SHORT)
       }
     }).catch(error => {
       this.setState({

@@ -96,6 +96,7 @@ class OrderDetail extends Component {
       if(!responseJson.errno) {
         //支付成功
         this.props.actions.updateOrderData(responseJson.data.orderItem, this.arrIndex)
+        this.props.actions.delAccount(responseJson.data.orderItem.price.toString())
         this.setState({
           isShowPayModal: false
         })

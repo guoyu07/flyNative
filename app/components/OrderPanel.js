@@ -27,7 +27,7 @@ export default class OrderPanel extends Component {
         <View style={styles.panel_body}>
           <View style={styles.flight_info}>
             <Text style={styles.city}>{this.props.flightInfo.originCity}</Text>
-            <Text style={styles.city}>{this.props.flightInfo.flightDate}</Text>
+            <Text style={styles.city}>{this.props.flightInfo.showFlightDate}</Text>
           </View>
           <View style={styles.flight_info}>
             <Icon
@@ -39,7 +39,7 @@ export default class OrderPanel extends Component {
           </View>
           <View style={styles.flight_info}>
             <Text style={styles.city}>{ this.props.flightInfo.destinationCity }</Text>
-            <Text style={styles.city}>{ this.props.flightInfo.arrivalDate }</Text>
+            <Text style={styles.city}>{ this.props.flightInfo.showArrivalDate }</Text>
           </View>
         </View>
         { orderStatusView }

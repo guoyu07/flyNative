@@ -2,6 +2,7 @@
 *  定义url
 **/
 const PORT = 8360
+
 const rootUrl =  'http://10.6.94.140' + ':' + PORT
 
 export const Login = rootUrl + '/login'

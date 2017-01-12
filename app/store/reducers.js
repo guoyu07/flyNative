@@ -86,9 +86,19 @@ let reducers = {
         return {
           isLogin: false
         }
+      case types.SET_NAME: {
+        return {
+          ...state,
+          username: action.username
+        }
+      }
       case types.ADD_ACCOUNT:
         return {...state,
           account: state.account + parseFloat(action.money)
+        }
+      case types.DEL_ACCOUNT:
+        return {...state,
+          account: state.account - parseFloat(action.money)
         }
       default:
         return state
