@@ -6,7 +6,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
+      email: '',
       password: ''
     }
   }
@@ -39,7 +39,7 @@ export default class Login extends Component {
               <TextInput
                 style={{height: 40, marginTop: 20}}
                 placeholder="账号"
-                onChangeText={(username) => this.setState({username})}
+                onChangeText={(email) => this.setState({email})}
                 />
               <TextInput
                 style={{height: 40, marginTop: 10}}

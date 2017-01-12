@@ -1,8 +1,8 @@
 /**
 *  定义url
 **/
-const PORT = 8000
-const rootUrl =  'http://192.168.1.104' + ':' + PORT
+const PORT = 8360
+const rootUrl =  'http://10.6.94.140' + ':' + PORT
 
 export const Login = rootUrl + '/login'
 export const Logout = rootUrl + '/logout'
