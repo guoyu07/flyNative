@@ -3,7 +3,7 @@
 **/
 const PORT = 8360
 
-const rootUrl =  'http://10.6.94.140' + ':' + PORT
+const rootUrl =  'http://192.168.1.105' + ':' + PORT
 
 export const Login = rootUrl + '/login'
 export const Logout = rootUrl + '/logout'
